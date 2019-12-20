@@ -3,9 +3,12 @@
 	<head>
 		<meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>myfioridemo</title>
+		<title>helloworld</title>
 		<script id="sap-ui-bootstrap"
 			src="resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-language="en"
+			data-sap-ui-bindingSyntax="complex"
 			data-sap-ui-theme="sap_fiori_3"
 			data-sap-ui-resourceroots='{"myfioridemo.myfioridemo": "./"}'
 			data-sap-ui-compatVersion="edge"
@@ -13,8 +16,40 @@
 			data-sap-ui-async="true"
 			data-sap-ui-frameOptions="trusted">
 		</script>
+		<script>
+			sap.ui.getCore().attachInit(function(){
+				var app = new sap.m.App("myApp", {
+					initialPage:"page1"
+				});
+				
+				//create 1st page or view
+				var page1 = new sap.m.Page("page1",{
+					title: "Hello World!",
+					showNavButton: false,
+					content: new sap.m.Button({
+						text: "go to page2",
+						press: function(){
+							app.to("page2")
+						}
+					})
+				});
+				
+				//create 2nd page or view
+				var page2 = new sap.m.Page("page2",{
+					title:"Hello World page2",
+					showNavButton: true,
+					navButtonPress: function(){
+						app.back();
+					}
+				});
+				
+				//execute
+				app.addPage(page1).addPage(page2);
+				app.placeAt("content");
+			});
+		</script>
 	</head>
-	<body class="sapUiBody">
-		<div data-sap-ui-component data-name="myfioridemo.myfioridemo" data-id="container" data-settings='{"id" : "myfioridemo"}'></div>
+
+	<body class="sapUiBody" id ="content">
 	</body>
 </html>
